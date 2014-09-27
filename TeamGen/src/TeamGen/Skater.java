@@ -10,10 +10,19 @@ public class Skater {
     private double time;
     private int gender;
     private String nation;
+    private String name;
+
     public Skater(double timeSeconds, int gender, String nation) {
         time = timeSeconds;
         this.gender = gender;
         this.nation = nation.toUpperCase();
+    }
+    public Skater(String name, double timeSeconds, int gender, String nation)
+    {
+        this.name = name;
+        this.time = timeSeconds;
+        this.gender = gender;
+        this.nation = nation;
     }
 
     public double getTimeSeconds() {
@@ -24,5 +33,9 @@ public class Skater {
     }
     public String getNation() {
         return nation;
+    }
+
+    public String getName() {
+        return name;
     }
 }
