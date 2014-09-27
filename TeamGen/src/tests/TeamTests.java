@@ -12,7 +12,7 @@ public class TeamTests extends TestCase {
     private Skater jeremy = new Skater(34.03, Skater.MALE, "CAN");
     private Skater robert = new Skater(38.87, Skater.MALE, "AUT");
     private Skater vani = new Skater(38.35, Skater.FEMALE, "AUT");
-    private Skater stefan = new Skater(39.12, Skater.MALE, "AUT");
+    private Skater stefan = new Skater(39.21, Skater.MALE, "AUT");
     private Skater martin = new Skater(38.47, Skater.MALE, "SUI");
     private Skater roxi = new Skater(40.45, Skater.FEMALE, "GER");
 
