@@ -24,14 +24,14 @@ public class SimpleTeamGenerator extends TeamGenerator {
     }
 
     @Override
-    public List<Team> generateTeams() {
-        List<Team> result = new ArrayList<Team>();
+    public Draw generateTeams() {
+        Draw result = new Draw();
         fillSkaterPool();
         int maxTeamCount = (skaterPool.size() - skaterPool.size()%Team.TEAM_SIZE) / Team.TEAM_SIZE;
         //Possibly won't terminate with some skater lists (!)
-        while (result.size() < maxTeamCount){
+        while (result.teamCount() < maxTeamCount){
             try {
-                result.add(generateTeam());
+                result.addTeam(generateTeam());
             } catch (Exception e) {
                 result.clear();
                 fillSkaterPool();
