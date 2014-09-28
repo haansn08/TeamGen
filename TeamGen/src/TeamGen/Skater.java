@@ -3,7 +3,7 @@ package TeamGen;
 /**
  * Created by Stefan Haan on 9/27/14.
  */
-public class Skater {
+public class Skater implements Comparable<Skater>{
     public static final int FEMALE = 1;
     public static final int MALE = 2;
 
@@ -37,5 +37,10 @@ public class Skater {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Skater skater) {
+        return (int)(getTimeSeconds() - skater.getTimeSeconds());
     }
 }
