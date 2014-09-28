@@ -1,12 +1,13 @@
 package TeamGen;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Stefan Haan on 9/27/14.
  */
-public class Team {
+public class Team implements Iterable<Skater>{
     public static final int TEAM_SIZE = 3;
     private List<Skater> members = new ArrayList<Skater>(TEAM_SIZE);
 
@@ -42,5 +43,17 @@ public class Team {
 
     public int getMemberCount() {
         return members.size();
+    }
+
+    @Override
+    public Iterator<Skater> iterator() {
+        return members.iterator();
+    }
+
+    public double totalTime(){
+        double sum = 0.0;
+        for (Skater skater : this)
+            sum += skater.getTimeSeconds();
+        return  sum;
     }
 }
