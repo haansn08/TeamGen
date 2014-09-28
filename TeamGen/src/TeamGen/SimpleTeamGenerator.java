@@ -15,7 +15,6 @@ public class SimpleTeamGenerator extends TeamGenerator {
 
     public SimpleTeamGenerator(SkaterSource skaterSource) {
         this.skaterSource = skaterSource;
-        fillSkaterPool();
     }
 
     private void fillSkaterPool() {
@@ -27,6 +26,7 @@ public class SimpleTeamGenerator extends TeamGenerator {
     @Override
     public List<Team> generateTeams() {
         List<Team> result = new ArrayList<Team>();
+        fillSkaterPool();
         int maxTeamCount = (skaterPool.size() - skaterPool.size()%Team.TEAM_SIZE) / Team.TEAM_SIZE;
         //Possibly won't terminate with some skater lists (!)
         while (result.size() < maxTeamCount){
