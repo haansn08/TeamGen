@@ -11,9 +11,9 @@ public class Main {
             System.err.print("Must specify CSV skater file");
             return;
         }
+        SkaterSource skaterSource = loadSkaterSource(args[0]);
+        TeamGenerator generator = new SimpleTeamGenerator(skaterSource);
         for (int maxRuns = 1; maxRuns <= 1000; maxRuns++) {
-            SkaterSource skaterSource = loadSkaterSource(args[0]);
-            TeamGenerator generator = new SimpleTeamGenerator(skaterSource);
             List<Team> generatedTeams = generateTeams(generator, maxRuns);
             double averageTeamTime = getTotalTime(generatedTeams) / (double) (generatedTeams.size());
             System.out.println(maxRuns + " " + Math.sqrt(getVariance(generatedTeams, averageTeamTime)));
