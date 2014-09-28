@@ -11,17 +11,13 @@ public class Main {
             System.err.print("Must specify CSV skater file");
             return;
         }
-        int maxRuns = 1000;
-        if (args.length > 1)
-            maxRuns = Integer.parseInt(args[1]);
-
-        SkaterSource skaterSource = loadSkaterSource(args[0]);
-        TeamGenerator generator = new SimpleTeamGenerator(skaterSource);
-        List<Team> generatedTeams = generateTeams(generator, maxRuns);
-        printTeams(generatedTeams);
-        System.out.println();
-        System.out.println("------- Statistics ---------------------");
-        printStatistics(generatedTeams);
+        for (int maxRuns = 1; maxRuns <= 1000; maxRuns++) {
+            SkaterSource skaterSource = loadSkaterSource(args[0]);
+            TeamGenerator generator = new SimpleTeamGenerator(skaterSource);
+            List<Team> generatedTeams = generateTeams(generator, maxRuns);
+            double averageTeamTime = getTotalTime(generatedTeams) / (double) (generatedTeams.size());
+            System.out.println(maxRuns + " " + Math.sqrt(getVariance(generatedTeams, averageTeamTime)));
+        }
     }
 
     private static List<Team> generateTeams(TeamGenerator generator, int maxRuns) {
