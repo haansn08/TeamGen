@@ -41,6 +41,11 @@ public class Skater implements Comparable<Skater>{
 
     @Override
     public int compareTo(Skater skater) {
-        return (int)(getTimeSeconds() - skater.getTimeSeconds());
+        double diff = getTimeSeconds() - skater.getTimeSeconds();
+        if (diff < 0.0)
+            return -1;
+        if (diff > 0.0)
+            return 1;
+        return 0;
     }
 }
