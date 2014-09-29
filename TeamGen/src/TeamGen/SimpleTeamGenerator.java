@@ -52,7 +52,8 @@ public class SimpleTeamGenerator extends TeamGenerator {
             } catch (InvalidSkaterException e) {
                 i--; //draw this skater again
                 trials++;
-                if (trials > 1000) //Could be much lower
+                if (trials > skaterPool.size()) //no special math involved -
+                                                //should just be depended on number of skaters available
                     throw new Exception("No more skaters could be selected");
             } catch (Exception e) {
                 e.printStackTrace();

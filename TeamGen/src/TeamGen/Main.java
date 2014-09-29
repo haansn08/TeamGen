@@ -13,7 +13,7 @@ public class Main {
         if (args.length > 1)
             maxRuns = Integer.parseInt(args[1]);
 
-        SkaterSource skaterSource = loadSkaterSource(args[0]);
+        SkaterSource skaterSource = new CSVSkaterSource(args[0]);
         TeamGenerator generator = new SimpleTeamGenerator(skaterSource);
         Draw generatedTeams = generateTeams(generator, maxRuns);
 
@@ -36,14 +36,10 @@ public class Main {
         return bestGeneration;
     }
 
-    private static SkaterSource loadSkaterSource(String csvFile) throws Exception {
-        return new CSVSkaterSource(csvFile);
-    }
-
     private static void printTeams(Draw draw) {
-        int i = 0;
+        int i = 1;
         for (Team team : draw) {
-            System.out.print("Team " + (i+1) + ":\t");
+            System.out.print("Team " + i + ":\t");
             for (Skater skater : team)
                 System.out.print(skater.getName() + " (" + skater.getTimeSeconds() + ")\t");
             System.out.print("\tTotal:" + Math.round(team.totalTime() * 100.0) / 100.0);
