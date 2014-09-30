@@ -18,15 +18,11 @@ public class CSVSkaterSource extends SkaterSource {
     }
 
     @Override
-    public List<Skater> readAllSkaters() {
+    public List<Skater> readAllSkaters() throws Exception {
         if (skaters != null)
             return skaters;
         skaters = new ArrayList<Skater>();
-        try {
-            readFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        readFile();
         return skaters;
     }
 

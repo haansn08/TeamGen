@@ -22,7 +22,7 @@ public class Skater implements Comparable<Skater>{
         this.name = name;
         this.time = timeSeconds;
         this.gender = gender;
-        this.nation = nation;
+        this.nation = nation.toUpperCase();
     }
 
     public double getTimeSeconds() {

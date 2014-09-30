@@ -19,14 +19,14 @@ public class SimpleTeamGenerator extends TeamGenerator {
         this.maxRuns = maxRuns;
     }
 
-    private void fillSkaterPool() {
+    private void fillSkaterPool() throws Exception {
         skaterPool = new ArrayList<Skater>();
         skaterPool.addAll(skaterSource.readAllSkaters());
-        Collections.sort(skaterPool);
+        Collections.sort(skaterPool); //sort skaters by time
     }
 
     @Override
-    public Draw generateTeams() {
+    public Draw generateTeams() throws Exception {
         double bestDeviation = Double.MAX_VALUE;
         Draw bestDraw = null;
         for (int i = 0; i < maxRuns; i++) {
@@ -39,7 +39,7 @@ public class SimpleTeamGenerator extends TeamGenerator {
         return bestDraw;
     }
 
-    private Draw generateNewDraw() {
+    private Draw generateNewDraw() throws Exception {
         Draw result = new Draw();
         fillSkaterPool();
         int maxTeamCount = (skaterPool.size() - skaterPool.size()% Team.TEAM_SIZE) / Team.TEAM_SIZE;
@@ -78,7 +78,7 @@ public class SimpleTeamGenerator extends TeamGenerator {
     }
 
     private int drawSkater(int quarter) {
-        int quaterSize = skaterPool.size() / Team.TEAM_SIZE;
-        return rand.nextInt(quaterSize) + quarter*quaterSize;
+        int quarterSize = skaterPool.size() / Team.TEAM_SIZE;
+        return rand.nextInt(quarterSize) + quarter*quarterSize;
     }
 }

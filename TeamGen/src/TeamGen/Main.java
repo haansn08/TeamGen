@@ -6,7 +6,7 @@ package TeamGen;
 public class Main {
     public static void main(String[] args) throws Exception {
         if (args.length < 1){
-            System.err.print("Must specify CSV skater file");
+            System.err.println("Must specify CSV skater file");
             return;
         }
 
@@ -23,23 +23,27 @@ public class Main {
     private static void printTeams(Draw draw) {
         int i = 1;
         for (Team team : draw) {
-            System.out.print("Team " + i + ":\t");
+            System.out.print("Team " + (i++) + ":\t");
             for (Skater skater : team)
                 System.out.print(skater.getName() + " (" + skater.getTimeSeconds() + ")\t");
-            System.out.print("\tTotal:" + Math.round(team.totalTime() * 100.0) / 100.0);
+            System.out.print("\tTotal:" + round(team.totalTime(), 2));
             System.out.println();
-            i++;
         }
     }
 
     private static void printStatistics(Draw teams) {
         double averageTeamTime = teams.teamAverage();
-        System.out.println("Team average:\t" + Math.round(averageTeamTime * 100.0) / 100.0);
+        System.out.println("Team average:\t" + round(averageTeamTime, 2));
 
         double averageSkaterTime = averageTeamTime / (double)(Team.TEAM_SIZE);
-        System.out.println("Skater average:\t" + Math.round(averageSkaterTime * 100.0) / 100.0);
+        System.out.println("Skater average:\t" + round(averageSkaterTime, 2));
 
         double teamDeviation = teams.deviation();
-        System.out.println("Team deviation:\t" + Math.round(teamDeviation * 1000.0) / 1000.0);
+        System.out.println("Team deviation:\t" + round(teamDeviation, 3));
+    }
+
+    private static double round (double number, int digits){
+        double power = Math.pow(10.0, digits);
+        return Math.round(number * power) / power;
     }
 }

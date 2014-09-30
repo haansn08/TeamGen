@@ -10,7 +10,7 @@ public class OptimalTeamGenerator extends TeamGenerator { //The name is a joke
     private List<Skater> skaterPool = new ArrayList<Skater>();
     private double optimalTeamAverage;
 
-    public OptimalTeamGenerator(SkaterSource skaterSource){
+    public OptimalTeamGenerator(SkaterSource skaterSource) throws Exception {
         skaterPool.addAll(skaterSource.readAllSkaters());
         calculateTeamAverage();
     }
