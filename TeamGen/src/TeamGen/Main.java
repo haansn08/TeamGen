@@ -1,5 +1,7 @@
 package TeamGen;
 
+import java.util.List;
+
 /**
  * Created by Stefan Haan on 9/28/14.
  */
@@ -12,12 +14,13 @@ public class Main {
 
         SkaterSource skaterSource = new CSVSkaterSource(args[0]);
         TeamGenerator generator = new OptimalTeamGenerator(skaterSource);
-        Draw generatedTeams = generator.generateTeams();
+        Draw draw = generator.generateTeams();
 
-        printTeams(generatedTeams);
+        printTeams(draw);
+        printIgnoredSkaters(draw, skaterSource);
         System.out.println();
         System.out.println("------- Statistics ---------------------");
-        printStatistics(generatedTeams);
+        printStatistics(draw);
     }
 
     private static void printTeams(Draw draw) {
@@ -25,10 +28,27 @@ public class Main {
         for (Team team : draw) {
             System.out.print("Team " + (i++) + ":\t");
             for (Skater skater : team)
-                System.out.print(skater.getName() + " (" + skater.getTimeSeconds() + ")\t");
+                printSkater(skater);
             System.out.print("\tTotal:" + round(team.totalTime(), 2));
             System.out.println();
         }
+    }
+
+    private static void printIgnoredSkaters(Draw draw, SkaterSource skaterSource) throws Exception {
+        List<Skater> allSkaters = skaterSource.readAllSkaters();
+        for (Team team : draw)
+            for (Skater skater : team)
+                allSkaters.remove(skater);
+        if (allSkaters.isEmpty())
+            return;
+
+        System.out.println("------- Ignored Skaters ----------------");
+        for (Skater skater : allSkaters)
+            printSkater(skater);
+    }
+
+    private static void printSkater(Skater skater) {
+        System.out.print(skater.getName() + " (" + skater.getTimeSeconds() + ")\t");
     }
 
     private static void printStatistics(Draw teams) {
