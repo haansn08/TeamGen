@@ -28,9 +28,9 @@ public class CSVSkaterSource extends SkaterSource {
 
     private void readFile() throws Exception {
         while (fileReader.ready()){
-            skaters.add(
-                    parseCSV(fileReader.readLine())
-            );
+            String line = fileReader.readLine();
+            if (!line.isEmpty())
+                skaters.add(parseCSV(line));
         }
     }
 
