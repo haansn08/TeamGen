@@ -9,12 +9,12 @@ public class Main {
             System.err.print("Must specify CSV skater file");
             return;
         }
-        int maxRuns = 1000;
+        int maxRuns = 1;
         if (args.length > 1)
             maxRuns = Integer.parseInt(args[1]);
 
         SkaterSource skaterSource = new CSVSkaterSource(args[0]);
-        TeamGenerator generator = new SimpleTeamGenerator(skaterSource);
+        TeamGenerator generator = new OptimalTeamGenerator(skaterSource);
         Draw generatedTeams = generateTeams(generator, maxRuns);
 
         printTeams(generatedTeams);
@@ -23,7 +23,7 @@ public class Main {
         printStatistics(generatedTeams);
     }
 
-    private static Draw generateTeams(TeamGenerator generator, int maxRuns) {
+    private static Draw generateTeams(TeamGenerator generator, int maxRuns) throws Exception {
         double bestDeviation = Double.MAX_VALUE;
         Draw bestGeneration = null;
         for (int i = 0; i < maxRuns; i++) {
