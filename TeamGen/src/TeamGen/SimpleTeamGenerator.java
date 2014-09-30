@@ -12,9 +12,11 @@ public class SimpleTeamGenerator extends TeamGenerator {
     SkaterSource skaterSource;
     private List<Skater> skaterPool;
     private Random rand = new Random(System.currentTimeMillis());
+    private int maxRuns;
 
-    public SimpleTeamGenerator(SkaterSource skaterSource) {
+    public SimpleTeamGenerator(SkaterSource skaterSource, int maxRuns) {
         this.skaterSource = skaterSource;
+        this.maxRuns = maxRuns;
     }
 
     private void fillSkaterPool() {
@@ -25,9 +27,22 @@ public class SimpleTeamGenerator extends TeamGenerator {
 
     @Override
     public Draw generateTeams() {
+        double bestDeviation = Double.MAX_VALUE;
+        Draw bestDraw = null;
+        for (int i = 0; i < maxRuns; i++) {
+            Draw newDraw = generateNewDraw();
+            if (newDraw.deviation() < bestDeviation){
+                bestDeviation = newDraw.deviation();
+                bestDraw = newDraw;
+            }
+        }
+        return bestDraw;
+    }
+
+    private Draw generateNewDraw() {
         Draw result = new Draw();
         fillSkaterPool();
-        int maxTeamCount = (skaterPool.size() - skaterPool.size()%Team.TEAM_SIZE) / Team.TEAM_SIZE;
+        int maxTeamCount = (skaterPool.size() - skaterPool.size()% Team.TEAM_SIZE) / Team.TEAM_SIZE;
         //Possibly won't terminate with some skater lists (!)
         while (result.teamCount() < maxTeamCount){
             try {
