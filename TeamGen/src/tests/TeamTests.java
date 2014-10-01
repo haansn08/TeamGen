@@ -1,20 +1,15 @@
 package tests;
 
 import TeamGen.InvalidSkaterException;
-import TeamGen.Skater;
 import TeamGen.Team;
 import junit.framework.TestCase;
+
+import static tests.Skaters.*;
 
 /**
  * Created by Stefan Haan on 9/27/14.
  */
 public class TeamTests extends TestCase {
-    private Skater jeremy = new Skater(34.03, Skater.MALE, "CAN");
-    private Skater robert = new Skater(38.87, Skater.MALE, "AUT");
-    private Skater vani = new Skater(38.35, Skater.FEMALE, "AUT");
-    private Skater stefan = new Skater(39.21, Skater.MALE, "AUT");
-    private Skater martin = new Skater(38.47, Skater.MALE, "SUI");
-    private Skater roxi = new Skater(40.45, Skater.FEMALE, "GER");
 
     public void testAddSkater() throws Exception {
         Team team = new Team();
