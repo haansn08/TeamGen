@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Stefan Haan on 9/27/14.
  */
-public class CSVSkaterSource extends SkaterSource {
+public class CSVSkaterSource implements SkaterSource {
     BufferedReader fileReader;
     List<Skater> skaters;
     public CSVSkaterSource(String filename) throws Exception{

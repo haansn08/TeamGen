@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class SimpleTeamGenerator extends TeamGenerator {
     SkaterSource skaterSource;
-    private List<Skater> skaterPool;
+    private SkaterPool skaterPool = new SkaterPool();
     private Random rand = new Random(System.currentTimeMillis());
     private int maxRuns;
 
@@ -20,9 +20,8 @@ public class SimpleTeamGenerator extends TeamGenerator {
     }
 
     private void fillSkaterPool() throws Exception {
-        skaterPool = new ArrayList<Skater>();
-        skaterPool.addAll(skaterSource.readAllSkaters());
-        Collections.sort(skaterPool); //sort skaters by time
+        skaterPool.clear();
+        skaterPool.fill(skaterSource);
     }
 
     @Override
@@ -62,7 +61,6 @@ public class SimpleTeamGenerator extends TeamGenerator {
             try{
                 int skaterIndex = drawSkater(i);
                 newTeam.addSkater(skaterPool.get(skaterIndex));
-                skaterPool.remove(skaterIndex);
                 trials = 0;
             } catch (InvalidSkaterException e) {
                 i--; //draw this skater again
@@ -74,6 +72,7 @@ public class SimpleTeamGenerator extends TeamGenerator {
                 e.printStackTrace();
             }
         }
+        skaterPool.removeTeam(newTeam);
         return newTeam;
     }
 
