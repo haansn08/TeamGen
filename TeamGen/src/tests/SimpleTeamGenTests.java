@@ -12,7 +12,7 @@ public class SimpleTeamGenTests extends TestCase {
         TeamGenerator simpleGenerator = new SimpleTeamGenerator(skaterSource, 5);
         Draw generatedTeams = simpleGenerator.generateTeams();
 
-        assertEquals(10, generatedTeams.teamCount());
+        assertEquals(skaterSource.readAllSkaters().size() / 3, generatedTeams.teamCount());
         for (Team team : generatedTeams)
             assertEquals(true, team.isFull());
     }

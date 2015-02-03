@@ -11,14 +11,7 @@ public class OptimalTeamGenerator extends TeamGenerator { //The name is a joke
 
     public OptimalTeamGenerator(SkaterSource skaterSource) throws Exception {
         skaterPool.fill(skaterSource);
-        calculateTeamAverage();
-    }
-
-    private void calculateTeamAverage() {
-        for (Skater skater : skaterPool)
-            optimalTeamAverage += skater.getTimeSeconds();
-        optimalTeamAverage /= (double)skaterPool.size();
-        optimalTeamAverage *= 3.0;
+        optimalTeamAverage = skaterPool.calculateTeamAverage();
     }
 
     @Override

@@ -52,4 +52,18 @@ public class SkaterPool implements Iterable<Skater>{
     public void clear() {
         pool.clear();
     }
+
+    public void addTeam(Team team) {
+        for (Skater skater : team)
+            pool.add(skater);
+    }
+
+    public double calculateTeamAverage() {
+        double teamAverage = 0;
+        for (Skater skater : this)
+            teamAverage += skater.getTimeSeconds();
+        teamAverage /= (double)size();
+        teamAverage *= 3.0;
+        return teamAverage;
+    }
 }

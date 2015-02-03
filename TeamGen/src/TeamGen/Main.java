@@ -13,7 +13,7 @@ public class Main {
         }
 
         SkaterSource skaterSource = new CSVSkaterSource(args[0]);
-        TeamGenerator generator = new OptimalTeamGenerator(skaterSource);
+        TeamGenerator generator = new TrackbackTeamGenerator(skaterSource);
         Draw draw = generator.generateTeams();
 
         printTeams(draw);
