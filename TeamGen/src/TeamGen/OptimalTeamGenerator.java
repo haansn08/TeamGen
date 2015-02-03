@@ -1,6 +1,5 @@
 package TeamGen;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,14 +25,16 @@ public class OptimalTeamGenerator extends TeamGenerator { //The name is a joke
     public Draw generateTeams() throws Exception {
         Draw result = new Draw();
         List<Team> possibleTeams;
-        do {
+        while (true) {
             possibleTeams = skaterPool.getPossibleTeams();
+            if (possibleTeams.size() == 0)
+                break;
             Team bestTeam = findBestTeam(possibleTeams);
 
             result.addTeam(bestTeam);
             skaterPool.removeTeam(bestTeam);
 
-        } while (possibleTeams.size() > 0);
+        }
         return result;
     }
 
