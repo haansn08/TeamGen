@@ -12,8 +12,17 @@ public class Main {
             return;
         }
 
-        SkaterSource skaterSource = new CSVSkaterSource(args[0]);
-        TeamGenerator generator = new TrackbackTeamGenerator(skaterSource);
+        SkaterSource skaterSource;
+        TeamGenerator generator;
+        if (args.length == 2) {
+            skaterSource = new CSVSkaterSource(args[1]);
+            generator = getGeneratorFromArgument(args[0], skaterSource);
+        }
+        else {
+            skaterSource = new CSVSkaterSource(args[0]);
+            //use default generator
+            generator = new TrackbackTeamGenerator(skaterSource);
+        }
         Draw draw = generator.generateTeams();
 
         printTeams(draw);
@@ -21,6 +30,14 @@ public class Main {
         System.out.println();
         System.out.println("------- Statistics ---------------------");
         printStatistics(draw);
+    }
+
+    private static TeamGenerator getGeneratorFromArgument(String arg, SkaterSource skaterSource) throws Exception {
+        if (arg.equalsIgnoreCase("-s"))
+            return new SimpleTeamGenerator(skaterSource, 5);
+        if (arg.equalsIgnoreCase("-o"))
+            return new OptimalTeamGenerator(skaterSource);
+        return new TrackbackTeamGenerator(skaterSource);
     }
 
     private static void printTeams(Draw draw) {
