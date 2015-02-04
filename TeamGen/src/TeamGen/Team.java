@@ -11,14 +11,11 @@ public class Team implements Iterable<Skater>{
     public static final int TEAM_SIZE = 3;
     private List<Skater> members = new ArrayList<Skater>(TEAM_SIZE);
 
-    public void addSkater(Skater skater) throws Exception{
-        if (isFull())
-            throw new IndexOutOfBoundsException("Too many skaters in team");
-        if (!isValidNation(skater.getNation()))
-            throw new InvalidSkaterException(InvalidSkaterException.INVALID_NATION);
-        if (!isValidGender(skater.getGender()))
-            throw new InvalidSkaterException(InvalidSkaterException.INVALID_GENDER);
+    public boolean addSkater(Skater skater) throws Exception{
+        if (isFull() || !isValidNation(skater.getNation()) || !isValidGender(skater.getGender()))
+            return false;
         members.add(skater);
+        return true;
     }
 
     private boolean isValidGender(int gender) {

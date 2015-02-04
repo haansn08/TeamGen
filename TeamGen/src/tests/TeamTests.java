@@ -1,6 +1,5 @@
 package tests;
 
-import TeamGen.InvalidSkaterException;
 import TeamGen.Team;
 import junit.framework.TestCase;
 
@@ -26,43 +25,28 @@ public class TeamTests extends TestCase {
         team.addSkater(jeremy);
         team.addSkater(robert);
         team.addSkater(roxi);
-        try{
-            team.addSkater(stefan);
+        if (team.addSkater(stefan))
             fail();
-        }
-        catch (IndexOutOfBoundsException ignored){}
     }
 
     public void testValidTeamNation() throws Exception {
         Team teamA = new Team();
         teamA.addSkater(jeremy); //CAN
         teamA.addSkater(robert); //AUT
-        try {
-            teamA.addSkater(vani);   //AUT
+        if (teamA.addSkater(vani))   //AUT
             fail();
-        }
-        catch (InvalidSkaterException e){
-            assertEquals(InvalidSkaterException.INVALID_NATION, e.getReason());
-        }
-
         Team teamB = new Team();
         teamB.addSkater(jeremy); //CAN
         teamB.addSkater(vani);   //AUT
         teamB.addSkater(martin); //SUI
     }
 
-    public void testValidTeamGender() throws Exception{
+    public void testValidTeamGender() throws Exception {
         Team teamA = new Team();
         teamA.addSkater(jeremy);
         teamA.addSkater(robert);
-        try{
-            teamA.addSkater(martin);
+        if (teamA.addSkater(martin))
             fail();
-        }
-        catch (InvalidSkaterException e){
-            assertEquals(InvalidSkaterException.INVALID_GENDER, e.getReason());
-        }
-
         Team teamB = new Team();
         teamB.addSkater(jeremy);
         teamB.addSkater(robert);

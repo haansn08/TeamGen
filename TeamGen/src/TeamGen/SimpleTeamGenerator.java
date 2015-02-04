@@ -1,8 +1,5 @@
 package TeamGen;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,7 +27,7 @@ public class SimpleTeamGenerator extends TeamGenerator {
         Draw bestDraw = null;
         for (int i = 0; i < maxRuns; i++) {
             Draw newDraw = generateNewDraw();
-            if (newDraw.deviation() < bestDeviation){
+            if (newDraw.deviation() < bestDeviation) {
                 bestDeviation = newDraw.deviation();
                 bestDraw = newDraw;
             }
@@ -41,9 +38,9 @@ public class SimpleTeamGenerator extends TeamGenerator {
     private Draw generateNewDraw() throws Exception {
         Draw result = new Draw();
         fillSkaterPool();
-        int maxTeamCount = (skaterPool.size() - skaterPool.size()% Team.TEAM_SIZE) / Team.TEAM_SIZE;
+        int maxTeamCount = (skaterPool.size() - skaterPool.size() % Team.TEAM_SIZE) / Team.TEAM_SIZE;
         //Possibly won't terminate with some skater lists (!)
-        while (result.teamCount() < maxTeamCount){
+        while (result.teamCount() < maxTeamCount) {
             try {
                 result.addTeam(generateTeam());
             } catch (Exception e) {
@@ -58,19 +55,16 @@ public class SimpleTeamGenerator extends TeamGenerator {
         Team newTeam = new Team();
         int trials = 0;
         for (int i = 0; i < Team.TEAM_SIZE; i++) {
-            try{
-                int skaterIndex = drawSkater(i);
-                newTeam.addSkater(skaterPool.get(skaterIndex));
-                trials = 0;
-            } catch (InvalidSkaterException e) {
+            int skaterIndex = drawSkater(i);
+            if (!newTeam.addSkater(skaterPool.get(skaterIndex))) {
                 i--; //draw this skater again
                 trials++;
                 if (trials > skaterPool.size()) //no special math involved -
-                                                //should just be depended on number of skaters available
+                    //should just be depended on number of skaters available
                     throw new Exception("No more skaters could be selected");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } else
+                trials = 0;
+
         }
         skaterPool.removeTeam(newTeam);
         return newTeam;
@@ -78,6 +72,6 @@ public class SimpleTeamGenerator extends TeamGenerator {
 
     private int drawSkater(int quarter) {
         int quarterSize = skaterPool.size() / Team.TEAM_SIZE;
-        return rand.nextInt(quarterSize) + quarter*quarterSize;
+        return rand.nextInt(quarterSize) + quarter * quarterSize;
     }
 }
